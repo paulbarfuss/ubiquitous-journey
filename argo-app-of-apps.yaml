@@ -1,23 +1,24 @@
+---
 ##############
 # 🛎 Argo App of Apps. Points to a repo which contains some helm stuff
 #############
 
 applications:
   - name: ubiquitous-journey
-    destination: labs-ci-cd
+    destination: pbarfuss-ci-cd
     enabled: true
-    source: https://github.com/rht-labs/ubiquitous-journey.git
+    source: https://github.com/paulbarfuss/ubiquitous-journey.git
     source_path: ubiquitous-journey/
-    source_ref: master
+    source_ref: pbarfuss-ci-cd
     sync_policy_automated: false
     helm_values:
       - values-tooling.yaml
   - name: example-deployment
-    destination: labs-ci-cd
+    destination: pbarfuss-ci-cd
     enabled: false
-    source: https://github.com/rht-labs/ubiquitous-journey.git
+    source: https://github.com/paulbarfuss/ubiquitous-journey.git
     source_path: example-deployment
-    source_ref: "master"
+    source_ref: pbarfuss-ci-cd
     sync_policy_automated: true
     helm_values:
       - values-applications.yaml

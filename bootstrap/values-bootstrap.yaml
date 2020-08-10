@@ -1,3 +1,4 @@
+---
 # override the `blah` or `` or `` to configure your
 # desired namespace. eg `my-dev` etc
 # removing the anchor tag will also break things 🏌️‍♂️
@@ -5,10 +6,10 @@
 
 bootstrap-project:
   enabled: true
-  ci_cd_namespace: &ci_cd "labs-ci-cd"
-  dev_namespace: &dev "labs-dev"
-  test_namespace: &test "labs-test"
-  staging_namespace: &stage "labs-staging"
+  ci_cd_namespace: &ci_cd "pbarfuss-ci-cd"
+  dev_namespace: &dev "pbarfuss-dev"
+  test_namespace: &test "pbarfuss-test"
+  staging_namespace: &stage "pbarfuss-staging"
   bindings: &binds
       # this labs-devs is the GROUP NAME in IDM
     - name: labs-devs
@@ -24,28 +25,28 @@ bootstrap-project:
       namespace: *ci_cd
 
   namespaces:
-  - name: *ci_cd
-    bindings:
-      *binds
-  - name: *dev
-    bindings:
-      *binds
-  - name: *test
-    bindings:
-      *binds
-  - name: *stage
-    bindings:
-      *binds
+    - name: *ci_cd
+      bindings:
+        *binds
+    - name: *dev
+      bindings:
+        *binds
+    - name: *test
+      bindings:
+        *binds
+    - name: *stage
+      bindings:
+        *binds
 
   serviceaccounts:
-  - name: jenkins
-    namespace: *ci_cd
+    - name: jenkins
+      namespace: *ci_cd
 
 argocd-operator:
   enabled: true
   name: argocd
   namespace: *ci_cd
-  instancelabel: rht-labs.com/uj
+  instancelabel: rht-labs.com/pbarfuss-uj
   
   # operator manages upgrades etc
   version: v1.6.2
@@ -63,10 +64,10 @@ argocd-operator:
   namespaceRoleBinding:
     enabled: false
     namespaces:
-    - name: *ci_cd
-    - name: *dev
-    - name: *test
-    - name: *stage
+      - name: *ci_cd
+      - name: *dev
+      - name: *test
+      - name: *stage
 
 sealed-secrets:
   # Disabled by default
