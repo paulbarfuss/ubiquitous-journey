@@ -118,7 +118,7 @@ owncloud_values: &owncloud_values
 #######################
 vault_values: &vault_values
   global:
-    tlsDisable: false
+    tlsDisable: true
     openshift: true
   injector:
     enabled: false
