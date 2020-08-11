@@ -139,10 +139,12 @@ vault_values: &vault_values
       config: |
         ui = true
         listener "tcp" {
-          address = "[::]:8200"
-          cluster_address = "[::]:8201"
+          address = "vault.pbarfuss-ci-cd.svc:8200"
+          cluster_address = "vault.pbarfuss-ci-cd.svc:8201"
           tls_cert_file = "/vault/userconfig/vault-tls/tls.crt"
           tls_key_file  = "/vault/userconfig/vault-tls/tls.key"
+        api_addr = "vault.pbarfuss-ci-cd.svc:8200"
+        cluster_addr = "vault.pbarfuss-ci-cd.svc:8201"
         }
         storage "file" {
           path = "/vault/data"
@@ -152,7 +154,7 @@ vault_values: &vault_values
 # 🐙 Argo Ignore Differences
 #############
 jenkins_ignore_differences: &jenkins_ignore_differences
-  ignoreDifferences:
+  ignoreDifferences:vault.pbarfuss-ci-cd
     - group: apps.openshift.io
       kind: DeploymentConfig
       jsonPointers:
