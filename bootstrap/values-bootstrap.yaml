@@ -10,8 +10,7 @@ bootstrap-project:
   dev_namespace: &dev "pbarfuss-dev"
   test_namespace: &test "pbarfuss-test"
   staging_namespace: &stage "pbarfuss-staging"
-  bindings: &binds
-      # this labs-devs is the GROUP NAME in IDM
+  bindings: &binds # this labs-devs is the GROUP NAME in IDM
     - name: labs-devs
       kind: Group
       role: edit
@@ -26,17 +25,13 @@ bootstrap-project:
 
   namespaces:
     - name: *ci_cd
-      bindings:
-        *binds
+      bindings: *binds
     - name: *dev
-      bindings:
-        *binds
+      bindings: *binds
     - name: *test
-      bindings:
-        *binds
+      bindings: *binds
     - name: *stage
-      bindings:
-        *binds
+      bindings: *binds
 
   serviceaccounts:
     - name: jenkins
@@ -47,7 +42,7 @@ argocd-operator:
   name: argocd
   namespace: *ci_cd
   instancelabel: rht-labs.com/pbarfuss-uj
-  
+
   # operator manages upgrades etc
   version: v1.6.2
   operator:
