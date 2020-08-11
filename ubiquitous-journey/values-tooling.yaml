@@ -122,7 +122,6 @@ vault_values: &vault_values
     openshift: true
   injector:
     enabled: false
-  openshift: true
   server:
     route:
       host: '""'
