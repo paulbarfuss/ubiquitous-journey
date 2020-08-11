@@ -112,7 +112,6 @@ owncloud_values: &owncloud_values
   route:
     enabled: true
   hostname: owncloud.apps.ccsd4.na-1.rht-labs.com
-  hostname: owncloud.owncloud.apps.hivec.sandbox1559.opentlc.com
 
 #######################
 # Vault Custom Values #
