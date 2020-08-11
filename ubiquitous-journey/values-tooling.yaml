@@ -111,7 +111,7 @@ mattermost_values: &mattermost_values
 owncloud_values: &owncloud_values
   route:
     enabled: true
-  hostname: owncloud.apps.hivec.sandbox1559.opentlc.com
+  hostname: owncloud.apps.ccsd4.na-1.rht-labs.com
 
 #######################
 # Vault Custom Values #
@@ -143,69 +143,69 @@ vault_values: &vault_values
 #############
 jenkins_ignore_differences: &jenkins_ignore_differences
   ignoreDifferences:
-  - group: apps.openshift.io
-    kind: DeploymentConfig
-    jsonPointers:
-    - /spec/template/spec/containers/0/image
-    - /spec/triggers/0/imageChangeParams/lastTriggeredImage
-  - group: build.openshift.io
-    kind: BuildConfig
-    jsonPointers:
-    - /spec/triggers
+    - group: apps.openshift.io
+      kind: DeploymentConfig
+      jsonPointers:
+        - /spec/template/spec/containers/0/image
+        - /spec/triggers/0/imageChangeParams/lastTriggeredImage
+    - group: build.openshift.io
+      kind: BuildConfig
+      jsonPointers:
+        - /spec/triggers
 
 nexus_ignore_differences: &nexus_ignore_differences
   ignoreDifferences:
-  - group: route.openshift.io
-    kind: Route
-    jsonPointers:
-    - /status/ingress
+    - group: route.openshift.io
+      kind: Route
+      jsonPointers:
+        - /status/ingress
 
 hoverflyignore_differences: &hoverfly_ignore_differences
   ignoreDifferences:
-  - group: route.openshift.io
-    kind: Route
-    jsonPointers:
-    - /status/ingress
-    - /spec/host
-  - group: apps/v1
-    kind: Deployment
-    jsonPointers:
-    - /spec/replicas
+    - group: route.openshift.io
+      kind: Route
+      jsonPointers:
+        - /status/ingress
+        - /spec/host
+    - group: apps/v1
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
 
 crw_ignore_differences: &crw_ignore_differences
   ignoreDifferences:
-  - group: org.eclipse.che
-    kind: CheCluster
-    jsonPointers:
-    - /spec
+    - group: org.eclipse.che
+      kind: CheCluster
+      jsonPointers:
+        - /spec
 
 dev-ex-dashboard_ignore_differences: &dev-ex-dashboard_ignore_differences
   ignoreDifferences:
-  - group: apps.openshift.io
-    kind: DeploymentConfig
-    jsonPointers:
-    - /spec/template/spec/containers/0/image
-    - /spec/triggers/0/imageChangeParams/lastTriggeredImage
-  - group: ''
-    kind: ConfigMap
-    jsonPointers:
-    - /data
+    - group: apps.openshift.io
+      kind: DeploymentConfig
+      jsonPointers:
+        - /spec/template/spec/containers/0/image
+        - /spec/triggers/0/imageChangeParams/lastTriggeredImage
+    - group: ""
+      kind: ConfigMap
+      jsonPointers:
+        - /data
 
 owncloud_ignore_differences: &owncloud_ignore_differences
   ignoreDifferences:
-  - group: apps.openshift.io
-    kind: DeploymentConfig
-    jsonPointers:
-    - /spec/template/spec/containers/0/image
-    - /spec/triggers/0/imageChangeParams/lastTriggeredImage
+    - group: apps.openshift.io
+      kind: DeploymentConfig
+      jsonPointers:
+        - /spec/template/spec/containers/0/image
+        - /spec/triggers/0/imageChangeParams/lastTriggeredImage
 
 vault_ignore_differences: &vault_ignore_differences
   ignoreDifferences:
-  - group: route.openshift.io
-    kind: Route
-    jsonPointers:
-    - /status/ingress
-    - /spec/host
+    - group: route.openshift.io
+      kind: Route
+      jsonPointers:
+        - /status/ingress
+        - /spec/host
 
 ##############
 # 🐙 Argo Sync Policy
@@ -236,8 +236,7 @@ applications:
     chart_name: sonatype-nexus
     source_path: ""
     source_ref: "0.0.4"
-    sync_policy:
-      *sync_policy_true
+    sync_policy: *sync_policy_true
     destination: *ci_cd_ns
     ignore_differences: *nexus_ignore_differences
   - name: jenkins
@@ -245,29 +244,24 @@ applications:
     source: https://github.com/redhat-cop/helm-charts.git
     source_path: charts/jenkins
     source_ref: "jenkins-0.0.19"
-    sync_policy:
-      *sync_policy_true
+    sync_policy: *sync_policy_true
     destination: *ci_cd_ns
-    values:
-      *jenkins_values
+    values: *jenkins_values
     ignore_differences: *jenkins_ignore_differences
   - name: pact-broker
     enabled: true
     source: https://github.com/redhat-cop/helm-charts.git
     source_path: charts/pact-broker
     source_ref: "pact-broker-0.0.3"
-    sync_policy:
-      *sync_policy_true
+    sync_policy: *sync_policy_true
     destination: *ci_cd_ns
-    values:
-      *pact_broker_values
+    values: *pact_broker_values
   - name: sonarqube
     enabled: true
     source: https://github.com/redhat-cop/helm-charts.git
     source_path: charts/sonarqube
     source_ref: "sonarqube-0.0.6"
-    sync_policy:
-      *sync_policy_true
+    sync_policy: *sync_policy_true
     destination: *ci_cd_ns
   - name: crw
     enabled: true
@@ -275,8 +269,7 @@ applications:
     source: https://github.com/rht-labs/refactored-adventure
     source_path: crw/base
     source_ref: master
-    sync_policy:
-      *sync_policy_no_selfheal
+    sync_policy: *sync_policy_no_selfheal
     no_helm: true
     ignore_differences: *crw_ignore_differences
   - name: zalenium
@@ -284,40 +277,33 @@ applications:
     source: https://github.com/zalando/zalenium.git
     source_path: charts/zalenium
     source_ref: "master"
-    sync_policy:
-      *sync_policy_true
+    sync_policy: *sync_policy_true
     destination: *ci_cd_ns
-    values:
-      *zalenium_values
+    values: *zalenium_values
   - name: hoverfly
     enabled: true
     source: https://github.com/helm/charts.git
     source_path: incubator/hoverfly
-    sync_policy:
-      *sync_policy_true
+    sync_policy: *sync_policy_true
     destination: *ci_cd_ns
     source_ref: "master"
-    values:
-      *hoverfly_values
+    values: *hoverfly_values
     ignore_differences: *hoverfly_ignore_differences
   - name: wekan
     enabled: true
     source: https://github.com/wekan/wekan.git
     source_path: helm/wekan
-    sync_policy:
-      *sync_policy_true
+    sync_policy: *sync_policy_true
     destination: *ci_cd_ns
     source_ref: "v4.01"
-    values:
-      *wekan_values
+    values: *wekan_values
   - name: tekton
     enabled: true
     destination: crw
     source: https://github.com/rht-labs/refactored-adventure
     source_path: tekton/base
     source_ref: master
-    sync_policy:
-      *sync_policy_true
+    sync_policy: *sync_policy_true
     no_helm: true
   - name: mattermost
     enabled: true
@@ -325,24 +311,21 @@ applications:
     source_path: charts/mattermost-team-edition
     destination: *ci_cd_ns
     source_ref: "mattermost-team-edition-3.10.0"
-    values:
-      *mattermost_values
+    values: *mattermost_values
   - name: etherpad
     enabled: true
     source: https://github.com/redhat-cop/helm-charts.git
     source_path: charts/etherpad
     destination: *ci_cd_ns
     source_ref: "etherpad-0.0.2"
-    sync_policy:
-      *sync_policy_true
+    sync_policy: *sync_policy_true
   - name: dev-ex-dashboard
     enabled: true
     source: https://github.com/redhat-cop/helm-charts.git
     source_path: charts/dev-ex-dashboard
     destination: *ci_cd_ns
     source_ref: "dev-ex-dashboard-0.0.2"
-    sync_policy:
-      *sync_policy_no_selfheal
+    sync_policy: *sync_policy_no_selfheal
     ignore_differences: *dev-ex-dashboard_ignore_differences
   - name: owncloud
     enabled: true
@@ -350,19 +333,15 @@ applications:
     source_path: charts/owncloud
     destination: *ci_cd_ns
     source_ref: "owncloud-0.0.2"
-    sync_policy:
-      *sync_policy_true
+    sync_policy: *sync_policy_true
     ignore_differences: *owncloud_ignore_differences
-    values:
-      *owncloud_values
+    values: *owncloud_values
   - name: vault
     enabled: true
     source: https://github.com/radudd/vault-helm.git
     source_path: .
     source_ref: openshift
     destination: *ci_cd_ns
-    sync_policy:
-      *sync_policy_true
+    sync_policy: *sync_policy_true
     ignore_differences: *vault_ignore_differences
-    values:
-      *vault_values
+    values: *vault_values
