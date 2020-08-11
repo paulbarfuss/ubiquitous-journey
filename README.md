@@ -136,9 +136,9 @@ _FYI if you're feeling lazy, you can override the values on the commandline dire
 6. Run argo create app replacing `MY_FORK` as appropriate
 ```bash
 argocd app create ubiquitous-journey \
-    --dest-namespace my-ci-cd \
+    --dest-namespace pbarfuss-ci-cd \
     --dest-server https://kubernetes.default.svc \
-    --repo https://github.com/MY_FORK/ubiquitous-journey.git \
+    --repo https://github.com/paulbarfuss/ubiquitous-journey.git \
     --path "ubiquitous-journey" --values "values-tooling.yaml"
 argocd app sync ubiquitous-journey
 ```
