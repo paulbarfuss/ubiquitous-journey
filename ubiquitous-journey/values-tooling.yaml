@@ -154,7 +154,7 @@ vault_values: &vault_values
 # 🐙 Argo Ignore Differences
 #############
 jenkins_ignore_differences: &jenkins_ignore_differences
-  ignoreDifferences:vault.pbarfuss-ci-cd
+  ignoreDifferences:
     - group: apps.openshift.io
       kind: DeploymentConfig
       jsonPointers:
