@@ -134,14 +134,21 @@ vault_values: &vault_values
     route:
       enabled: true
       host: '""'
+  server:
+    service:
+      annotations:
+        service.beta.openshift.io/serving-cert-secret-name: vault-tls
+    extraVolumes:
+      - type: secret
+        name: vault-tls
     standalone:
       config: |
         ui = true
         listener "tcp" {
           address = "[::]:8200"
           cluster_address = "[::]:8201"
-          tls_cert_file = "/var/run/secrets/kubernetes.io/certs/tls.crt"
-          tls_key_file = "/var/run/secrets/kubernetes.io/certs/tls.key"
+          tls_cert_file = "/vault/userconfig/vault-tls/tls.crt"
+          tls_key_file  = "/vault/userconfig/vault-tls/tls.key"
         }
         storage "file" {
           path = "/vault/data"
