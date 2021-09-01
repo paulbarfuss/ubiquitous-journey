@@ -24,7 +24,7 @@ applications:
     helm_values:
       - values-tooling.yaml
   - name: uj-extras
-    destination: labs-ci-cd
+    destination: argocd
     enabled: true
     source: https://github.com/paulbarfuss/ubiquitous-journey.git
     source_path: ubiquitous-journey/
